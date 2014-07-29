@@ -23,6 +23,6 @@ func main() {
 		nature.GrassProc(grassid, wpr.TimeFactor)
 	}	
 	
-	//block forever until the program is killed
+	//block forever until the program is killed to let go routines play out and the world to evolve
 	select{}
 }

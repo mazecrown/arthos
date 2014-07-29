@@ -24,7 +24,7 @@ func CreateGrass() Grass{
 	grass := Grass{"Grass", r}
 	return grass
 }
-
+const maxHeight = 7
 func GrassProc(grassid string, timefactor int) {
 	//do grassy things here
 	ticker := time.NewTicker(time.Millisecond * time.Duration(timefactor))	
@@ -36,18 +36,19 @@ func GrassProc(grassid string, timefactor int) {
 			grass := Grass{}
 			b.Get(grassid, &grass)
 			
-            //add a random number to the grasses existing height up to a maxheight
-            r := random(0.5, 1.5)
-            grass.Height = grass.Height + r
-            var maxHeight float64 = 7
-            if grass.Height > maxHeight {
-				grass.Height = maxHeight
+			if grass.Height < maxHeight {
+				//add a random number to the grasses existing height up to a maxheight
+				r := random(0.5, 1.5)
+				grass.Height = grass.Height + r            
+				if grass.Height > maxHeight {
+					grass.Height = maxHeight
+				}
+				
+				//write the grass back to the bucket
+				core.SetToBucket(grass, grassid)
+				
+				log.Println(grassid + " grew by " + strconv.FormatFloat(r, 'f', 6, 64))
 			}
-            
-            //write the grass back to the bucket
-            core.SetToBucket(grass, grassid)
-            
-			log.Println(grassid + " grew by " + strconv.FormatFloat(r, 'f', 6, 64))
         }
     }()
 }
