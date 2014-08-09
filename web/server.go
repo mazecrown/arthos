@@ -9,11 +9,13 @@ import (
 
 func lookHandler(w http.ResponseWriter, r *http.Request) {	
 	//get central coords from params
-	//build list of coords around that
-	//add those coords to a map of 'local' coords starting at 0,0,0
-	//get bulk of coords
-	//for each result get add the contents of the coords to a new map
-	//get bulk using the new map to get the contents of the coords
+	params := r.URL.Query()
+	fromX := int(params["x"])
+	fromY := int(params["y"])
+	fromZ := int(params["z"])
+	
+
+	//core look()
 	//add the contents results to the corresponding 'local' coord
 	//return the local coords and contents to the client 
 	
